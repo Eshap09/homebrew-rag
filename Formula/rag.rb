@@ -15,8 +15,9 @@ class Rag < Formula
     # create virtualenv with python3.12
     venv = virtualenv_create(libexec, "python3.12")
 
-    # install the package WITHOUT linking binaries
-    venv.pip_install buildpath
+    # 2. Force install the current buildpath (where pyproject.toml is)
+    # Use system pip from inside the venv to ensure it hits the pyproject.toml
+    system libexec/"bin/pip", "install", "-v", "--ignore-installed", buildpath
 
     # manually link the rag binary
     bin.install_symlink libexec/"bin/rag"
