@@ -12,15 +12,18 @@ class Rag < Formula
   depends_on "poppler"
 
   def install
-    # create virtualenv with python3.12
-    venv = virtualenv_create(libexec, "python3.12")
+        # 1. Create venv and EXPLICITLY ensure pip is installed inside it
+        system "python3.12", "-m", "venv", libexec
+        
+        # 2. Upgrade pip and setuptools inside the new venv
+        system libexec/"bin/pip", "install", "--upgrade", "pip", "setuptools"
 
-    # 2. Force install the current buildpath (where pyproject.toml is)
-    # Use system pip from inside the venv to ensure it hits the pyproject.toml
-    system libexec/"bin/pip", "install", "-v", "--ignore-installed", buildpath
+        # 3. Install your project (this reads the pyproject.toml)
+        # We use '.' because we are inside the buildpath
+        system libexec/"bin/pip", "install", "."
 
-    # manually link the rag binary
-    bin.install_symlink libexec/"bin/rag"
+        # 4. Link the 'rag' binary so you can run it from anywhere
+        bin.install_symlink libexec/"bin/rag"
   end
 
   def caveats
