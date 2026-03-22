@@ -3,8 +3,8 @@ class Rag < Formula
 
   desc "Local RAG API — chat with your documents from the browser"
   homepage "https://github.com/Eshap09/PDF-Rag"
-  url "https://github.com/Eshap09/PDF-Rag/archive/refs/tags/v1.0.1.tar.gz"
-  sha256 "0d62bcf5eac40a4c251117e76b9dbdef9e30a45910b20f3451a0f7f30d5bed93"
+  url "https://github.com/Eshap09/PDF-Rag/archive/refs/tags/v1.0.3.tar.gz"
+  sha256 "2babd3e56da914b2386ec8c9a3a7c82a11d3c6ef05c4a8bc3a4660d2003419c1"
   license "MIT"
 
   depends_on "python@3.12"
