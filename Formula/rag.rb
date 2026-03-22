@@ -12,13 +12,7 @@ class Rag < Formula
   depends_on "poppler"
 
   def install
-    venv = virtualenv_create(libexec, "python3.11")
-    venv.pip_install_and_link buildpath
-
-    (bin/"rag").write <<~EOS
-      #!/bin/bash
-      exec "#{libexec}/bin/rag" "$@"
-    EOS
+    virtualenv_install_with_resources
   end
 
   def caveats
