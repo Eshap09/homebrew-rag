@@ -7,12 +7,19 @@ class Rag < Formula
   sha256 "ee14027477de5c40a527a29e1262920cc9d25ba3470563fff2df1469ce6da0f9"
   license "MIT"
 
-  depends_on "python@3.11"
+  depends_on "python@3.12"
   depends_on "tesseract"
   depends_on "poppler"
 
   def install
-    virtualenv_install_with_resources
+    # create virtualenv with python3.12
+    venv = virtualenv_create(libexec, "python3.12")
+
+    # install the package WITHOUT linking binaries
+    venv.pip_install buildpath
+
+    # manually link the rag binary
+    bin.install_symlink libexec/"bin/rag"
   end
 
   def caveats
